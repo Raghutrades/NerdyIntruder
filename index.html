@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Quant Stoic — Library</title>
+<meta name="description" content="Trading books, summaries and audio breakdowns.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c1424;--panel:#141e33;--line:#26334f;--ink:#ede6d6;--mute:#93a0b8;--brass:#d2a93c;--soft:#cfd3dc;--pill:rgba(20,30,51,.8);--btnink:#1a1405}
+[data-theme=light]{--bg:#f5efe2;--panel:#fffcf5;--line:#dcd1b9;--ink:#1b2438;--mute:#5b6780;--brass:#8a6410;--soft:#3a465e;--pill:rgba(255,252,245,.85);--btnink:#fff8e6}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a,button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.hero{position:relative;min-height:86svh;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 22px 38px;max-width:1080px;margin:0 auto}
+.hero::before{content:"";position:absolute;inset:0 -50vw;background:linear-gradient(180deg,transparent 30%,var(--bg) 96%);z-index:1;pointer-events:none}
+#tape{position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%)}
+.hero>:not(canvas){position:relative;z-index:2}
+.hand{color:var(--brass);font-weight:600;margin-bottom:8px}
+h1{font:800 clamp(2.8rem,12vw,5.6rem)/.96 Fraunces,Georgia,serif;letter-spacing:-.025em}
+.lede{max-width:36ch;color:var(--mute);margin-top:16px;font-size:1.06rem}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.quick a,.act a,.act button{border:1px solid var(--line);background:var(--pill);padding:8px 15px;border-radius:99px;text-decoration:none;font-weight:500;font-size:.92rem;cursor:pointer;transition:border-color .2s,background .2s}
+.quick a:hover,.act a:hover,.act button:hover{border-color:var(--brass)}
+.quick a:first-child,.act .play{background:var(--brass);border-color:var(--brass);color:var(--btnink);font-weight:600}
+main{max-width:1080px;margin:0 auto;padding:0 18px 56px}
+.bar{display:flex;gap:8px;overflow-x:auto;padding:12px 0;position:sticky;top:0;background:var(--bg);z-index:5;scrollbar-width:none}
+.bar button{flex:none;border:1px solid var(--line);background:none;padding:6px 14px;border-radius:99px;cursor:pointer;color:var(--mute)}
+.bar button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:600}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin-top:8px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.card[hidden]{display:none}
+.top{display:flex;gap:14px}
+.cv{position:relative;flex:none;width:104px;aspect-ratio:2/3;border-radius:6px 10px 10px 6px;overflow:hidden;background:linear-gradient(160deg,hsl(var(--h) 38% 30%),hsl(var(--h) 45% 12%));box-shadow:-3px 0 0 rgba(0,0,0,.35) inset,0 8px 20px rgba(0,0,0,.4)}
+.cv span{position:absolute;inset:0;padding:10px 9px;font:800 .82rem/1.15 Fraunces,Georgia,serif;display:flex;align-items:flex-end}
+.cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+h2{font:600 1.25rem/1.2 Fraunces,Georgia,serif}
+.sub{color:var(--mute);font-size:.9rem;margin-top:3px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tags i{font-style:normal;font-size:.76rem;color:var(--brass);border:1px solid rgba(210,169,60,.4);border-radius:5px;padding:1px 7px}
+.sum{color:var(--soft);font-size:.95rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card.open .sum{-webkit-line-clamp:unset;display:block}
+.more{align-self:flex-start;background:none;border:0;color:var(--mute);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px;font-size:.88rem}
+.act{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.pl iframe{width:100%;height:110px;border:0;border-radius:8px;background:#0c1424}
+.pl audio{width:100%}
+.pl[hidden]{display:none}
+footer{max-width:1080px;margin:0 auto;padding:28px 22px 60px;border-top:1px solid var(--line);color:var(--mute);font-size:.88rem}
+footer p+p{margin-top:8px}
+body,footer{transition:background .4s,color .4s}
+.th{position:fixed;top:12px;right:12px;z-index:9;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--pill);cursor:pointer;font-size:1.1rem;backdrop-filter:blur(6px)}
+.qt{max-width:1080px;margin:0 auto;padding:4px 22px 34px}
+.qt figure{border-left:2px solid var(--brass);padding:4px 0 4px 18px;min-height:9em;cursor:pointer;transition:opacity .6s,transform .6s,filter .6s}
+.qt figure.out{opacity:0;transform:translateY(10px);filter:blur(4px)}
+.qt blockquote{font:600 clamp(1.3rem,4.8vw,2rem)/1.3 Fraunces,Georgia,serif;max-width:32ch}
+.qt figcaption{color:var(--mute);margin-top:10px;font-size:.92rem}
+.tk{height:2px;background:var(--line);margin-top:14px;border-radius:2px;overflow:hidden}
+.tk i{display:block;height:100%;width:0;background:var(--brass)}
+.tk i.run{animation:tick var(--qs,15s) linear forwards}
+@keyframes tick{to{width:100%}}
+.card{animation:rise .7s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--n)*80ms);transition:transform .25s,border-color .25s,background .4s}
+.card:hover{transform:translateY(-3px);border-color:var(--brass)}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<button class="th" id="th" aria-label="Switch light or dark theme"></button>
+<header class="hero">
+  <canvas id="tape" aria-hidden="true"></canvas>
+  <p class="hand" id="hd"></p>
+  <h1 id="nm"></h1>
+  <p class="lede" id="ld"></p>
+  <nav class="quick" id="qk" aria-label="Links"></nav>
+</header>
+<section class="qt" aria-label="Quotes"><figure id="qf" title="Tap for another quote"><blockquote id="qb"></blockquote><figcaption id="qa"></figcaption></figure><div class="tk"><i id="qbar"></i></div></section>
+<main>
+  <div class="bar" id="bar" aria-label="Filter by topic"></div>
+  <section class="grid" id="grid"></section>
+</main>
+<footer>
+  <p id="ft"></p>
+  <p>Educational content only. Not investment advice.</p>
+</footer>
+
+<script>
+/* ==========================================================================
+   HOW TO EDIT: only change the text inside "quotes" like "this". Never delete
+   a comma, bracket [ ], brace { } or the word before a colon (title:, cover: ...).
+
+   STEP 1: YOUR DETAILS
+   ========================================================================== */
+const PROFILE={
+  name:"The Quant Stoic",            /* big title on top */
+  handle:"@NerdyIntruder",           /* small line above the title */
+  tagline:"Intraday options, market structure and trading psychology. Books, summaries and audio breakdowns in one place.",
+  links:[                            /* buttons under the title, add or delete lines freely */
+    {label:"Jump to books",url:"#grid"},
+    {label:"Instagram",url:"https://instagram.com/YOUR_HANDLE"},
+    {label:"All files on Drive",url:"https://drive.google.com/drive/folders/YOUR_FOLDER_ID"}
+  ],
+  footer:"Made by The Quant Stoic."
+};
+
+/* ==========================================================================
+   STEP 2: YOUR BOOKS
+   One book = one block from { to }, followed by a comma.
+   ADD a book: copy a whole block, paste it right after the last block.
+   REMOVE a book: delete its whole block.
+
+   title    book name
+   subtitle author name or a short line
+   cover    image file in your GitHub "covers" folder, like "covers/book1.jpg".
+            Leave "" and a cover is generated for you.
+   tags     topics; they become the filter buttons at the top
+   summary  your text about the book (long is fine, it collapses)
+   audio    paste the normal Drive link of the NotebookLM audio
+            (Drive > Share > Copy link). No audio? write ""
+   pdf      Drive link of a PDF or doc. None? write ""
+   links    extra buttons, like [{label:"NotebookLM",url:"https://..."}]. None? write []
+   IMPORTANT: in Drive set each file to "Anyone with the link can view".
+   ========================================================================== */
+const BOOKS=[
+  {title:"Book Title One",subtitle:"Author name",cover:"",tags:["Psychology","Trading"],
+   summary:"Replace this with your own summary. Say what the book argues, what you took from it and how it shapes the way you trade.",
+   audio:"https://drive.google.com/file/d/PASTE_FILE_ID/view",
+   pdf:"https://drive.google.com/file/d/PASTE_FILE_ID/view",
+   links:[{label:"NotebookLM",url:"https://notebooklm.google.com/"}]},
+
+  {title:"Book Title Two",subtitle:"Author name",cover:"",tags:["Philosophy"],
+   summary:"Second book summary goes here.",
+   audio:"https://drive.google.com/file/d/PASTE_FILE_ID/view",pdf:"",links:[]},
+
+  {title:"Book Title Three",subtitle:"Author name",cover:"",tags:["Trading","Options"],
+   summary:"Third book summary goes here.",
+   audio:"",pdf:"https://drive.google.com/file/d/PASTE_FILE_ID/view",links:[]}
+];
+
+/* ==========================================================================
+   STEP 3: QUOTES (they rotate on their own, in random order)
+   QUOTE_SECONDS  how long each quote stays. Use any number from 10 to 20.
+   To add a quote, add a line like: ["Your quote text","Author name"],
+   ========================================================================== */
+const QUOTE_SECONDS=15;
+const QUOTES=[
+  ["Be fearful when others are greedy, and greedy when others are fearful.", "Warren Buffett"],
+  ["The stock market is a device for transferring money from the impatient to the patient.", "Warren Buffett"],
+  ["Rule No. 1: Never lose money. Rule No. 2: Never forget rule No. 1.", "Warren Buffett"],
+  ["Risk comes from not knowing what you're doing.", "Warren Buffett"],
+  ["It's not whether you're right or wrong, but how much money you make when you're right and how much you lose when you're wrong.", "George Soros"],
+  ["It never was my thinking that made the big money for me. It always was my sitting.", "Edwin Lefèvre, Reminiscences of a Stock Operator"],
+  ["There is nothing new in Wall Street. There can't be, because speculation is as old as the hills.", "Edwin Lefèvre, Reminiscences of a Stock Operator"],
+  ["Don't focus on making money; focus on protecting what you have.", "Paul Tudor Jones"],
+  ["Losers average losers.", "Paul Tudor Jones"],
+  ["The four most dangerous words in investing are: this time it's different.", "Sir John Templeton"],
+  ["Bull markets are born on pessimism, grown on skepticism, mature on optimism and die on euphoria.", "Sir John Templeton"],
+  ["In investing, what is comfortable is rarely profitable.", "Robert Arnott"],
+  ["The big money is not in the buying and selling, but in the waiting.", "Charlie Munger"],
+  ["Invert, always invert.", "Charlie Munger"],
+  ["The goal of a successful trader is to make the best trades. Money is secondary.", "Alexander Elder"],
+  ["The investor's chief problem, and even his worst enemy, is likely to be himself.", "Benjamin Graham"],
+  ["Plan the trade, then trade the plan.", "Trading maxim"],
+  ["Cut your losses short and let your profits run.", "Trading maxim"],
+  ["Hope is not a strategy.", "Trading maxim"],
+  ["The trend is your friend.", "Trading maxim"],
+  ["What stands in the way becomes the way.", "Marcus Aurelius"],
+  ["Waste no more time arguing about what a good man should be. Be one.", "Marcus Aurelius"],
+  ["You could leave life right now. Let that determine what you do and say and think.", "Marcus Aurelius"],
+  ["Very little is needed to make a happy life; it is all within yourself, in your way of thinking.", "Marcus Aurelius"],
+  ["It is not that we have a short time to live, but that we waste a lot of it.", "Seneca"],
+  ["We suffer more often in imagination than in reality.", "Seneca"],
+  ["Difficulties strengthen the mind, as labor does the body.", "Seneca"],
+  ["No man is free who is not master of himself.", "Epictetus"],
+  ["First say to yourself what you would be; and then do what you have to do.", "Epictetus"],
+  ["It's not what happens to you, but how you react to it that matters.", "Epictetus"],
+  ["We are what we repeatedly do. Excellence, then, is not an act, but a habit.", "Will Durant"],
+  ["You do not rise to the level of your goals. You fall to the level of your systems.", "James Clear"],
+  ["Every action you take is a vote for the type of person you wish to become.", "James Clear"],
+  ["Discipline is the bridge between goals and accomplishment.", "Jim Rohn"],
+  ["Motivation is what gets you started. Habit is what keeps you going.", "Jim Ryun"],
+  ["Success is the sum of small efforts, repeated day in and day out.", "Robert Collier"],
+  ["It does not matter how slowly you go as long as you do not stop.", "Confucius"],
+  ["A journey of a thousand miles begins with a single step.", "Lao Tzu"],
+  ["Fall seven times, stand up eight.", "Japanese proverb"],
+  ["Slow is smooth, and smooth is fast.", "Military maxim"],
+  ["What you do every day matters more than what you do once in a while.", "Gretchen Rubin"],
+  ["I fear not the man who has practiced 10,000 kicks once, but the man who has practiced one kick 10,000 times.", "Bruce Lee"],
+  ["Small deeds done are better than great deeds planned.", "Peter Marshall"],
+  ["Hard choices, easy life. Easy choices, hard life.", "Jerzy Gregorek"],
+  ["Whether you think you can, or you think you can't, you're right.", "Henry Ford"],
+  ["He who has a why to live can bear almost any how.", "Friedrich Nietzsche"],
+  ["Life can only be understood backwards; but it must be lived forwards.", "Søren Kierkegaard"],
+  ["Courage is resistance to fear, mastery of fear, not absence of fear.", "Mark Twain"],
+  ["What we fear doing most is usually what we most need to do.", "Tim Ferriss"],
+  ["Nothing in life is to be feared, it is only to be understood.", "Marie Curie"],
+  ["The first principle is that you must not fool yourself, and you are the easiest person to fool.", "Richard Feynman"],
+  ["Experience is what you get when you didn't get what you wanted.", "Randy Pausch"],
+  ["The unexamined life is not worth living.", "Socrates"],
+  ["Fortune favors the bold.", "Virgil"],
+  ["Do what you can, with what you have, where you are.", "Theodore Roosevelt"],
+  ["Well begun is half done.", "Aristotle"]
+];
+
+/* ============ END EDIT BLOCK ============ */
+
+const $=id=>document.getElementById(id);
+document.title=PROFILE.name+" — Library";
+$("hd").textContent=PROFILE.handle;$("nm").textContent=PROFILE.name;$("ld").textContent=PROFILE.tagline;$("ft").textContent=PROFILE.footer;
+$("qk").innerHTML=PROFILE.links.map(l=>`<a href="${l.url}"${l.url[0]=="#"?"":' target="_blank" rel="noopener"'}>${l.label}</a>`).join("");
+
+const card=(b,i)=>`<article class="card" data-i="${i}" style="--n:${i}" data-t="${b.tags.join("|")}">
+<div class="top"><div class="cv" style="--h:${(i*47+215)%360}"><span>${b.title}</span>${b.cover?`<img src="${b.cover}" alt="Cover of ${b.title}" loading="lazy" onerror="this.remove()">`:""}</div>
+<div><h2>${b.title}</h2><p class="sub">${b.subtitle||""}</p><p class="tags">${b.tags.map(t=>`<i>${t}</i>`).join("")}</p></div></div>
+<p class="sum">${b.summary}</p><button class="more">Read more</button>
+<div class="act">${b.audio?'<button class="play">Listen</button>':""}${b.pdf?`<a href="${b.pdf}" target="_blank" rel="noopener">Summary PDF</a>`:""}${(b.links||[]).map(l=>`<a href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join("")}</div>
+<div class="pl" hidden></div></article>`;
+const g=$("grid");g.innerHTML=BOOKS.map(card).join("");
+
+const tags=["All",...new Set(BOOKS.flatMap(b=>b.tags))];
+$("bar").innerHTML=tags.map((t,i)=>`<button aria-pressed="${!i}">${t}</button>`).join("");
+$("bar").onclick=e=>{const t=e.target.closest("button");if(!t)return;
+  [...$("bar").children].forEach(x=>x.setAttribute("aria-pressed",x==t));
+  g.querySelectorAll(".card").forEach(c=>c.hidden=t.textContent!="All"&&!c.dataset.t.split("|").includes(t.textContent))};
+
+g.onclick=e=>{const c=e.target.closest(".card");if(!c)return;const b=BOOKS[c.dataset.i],t=e.target;
+  if(t.matches(".more")){c.classList.toggle("open");t.textContent=c.classList.contains("open")?"Show less":"Read more"}
+  if(t.matches(".play")){const p=c.querySelector(".pl");p.hidden=!p.hidden;
+    if(!p.innerHTML){const m=b.audio.match(/\/d\/([\w-]+)|[?&]id=([\w-]+)/),id=m&&(m[1]||m[2]);
+      p.innerHTML=id?`<iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay" loading="lazy" title="Audio: ${b.title}"></iframe>`:`<audio controls preload="none" src="${b.audio}"></audio>`}
+    t.textContent=p.hidden?"Listen":"Hide player"}};
+
+/* Hero: a session of candles draws itself once, with a running VWAP line */
+(()=>{const c=$("tape"),x=c.getContext("2d"),dpr=Math.min(devicePixelRatio||1,2);let W,H,k=0;
+const bars=[];let p=100;for(let i=0;i<64;i++){const o=p,cl=o+(Math.random()-.46)*6;bars.push({o,cl,h:Math.max(o,cl)+Math.random()*3,l:Math.min(o,cl)-Math.random()*3,v:.4+Math.random()});p=cl}
+const mn=Math.min(...bars.map(b=>b.l)),mx=Math.max(...bars.map(b=>b.h));
+function draw(){x.clearRect(0,0,W,H);const cw=W/bars.length,y=v=>H*.1+(mx-v)/(mx-mn)*H*.5;
+  bars.slice(0,k).forEach((b,i)=>{const cx=i*cw+cw/2;x.globalAlpha=.5;x.strokeStyle=x.fillStyle=b.cl>=b.o?"#3fb6a8":"#c8626d";
+    x.beginPath();x.moveTo(cx,y(b.h));x.lineTo(cx,y(b.l));x.stroke();x.fillRect(cx-cw*.3,y(Math.max(b.o,b.cl)),cw*.6,Math.max(1.5,Math.abs(y(b.o)-y(b.cl))))});
+  x.globalAlpha=1;x.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--brass");x.lineWidth=1.6;x.beginPath();let pv=0,v=0;
+  bars.slice(0,k).forEach((b,i)=>{pv+=(b.h+b.l+b.cl)/3*b.v;v+=b.v;i?x.lineTo(i*cw+cw/2,y(pv/v)):x.moveTo(cw/2,y(pv/v))});x.stroke()}
+function size(){W=c.clientWidth;H=c.clientHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);draw()}
+addEventListener("resize",size);window.redrawTape=()=>draw();
+if(matchMedia("(prefers-reduced-motion:reduce)").matches){k=bars.length;size()}
+else{size();(function step(){k=Math.min(bars.length,k+.6);draw();if(k<bars.length)requestAnimationFrame(step)})()}})();
+
+/* Theme: follows the phone setting first, then remembers the button choice */
+const root=document.documentElement,th=$("th");
+function setTheme(t){root.dataset.theme=t;th.textContent=t=="dark"?"☀":"☾";try{localStorage.setItem("theme",t)}catch(e){}window.redrawTape&&redrawTape()}
+setTheme((()=>{try{return localStorage.getItem("theme")}catch(e){}})()||(matchMedia("(prefers-color-scheme:light)").matches?"light":"dark"));
+th.onclick=()=>setTheme(root.dataset.theme=="dark"?"light":"dark");
+
+/* Quotes: random order, no repeats until all are shown, tap to skip */
+(()=>{const f=$("qf"),b=$("qb"),a=$("qa"),bar=$("qbar");let order=[],last=-1,timer;
+root.style.setProperty("--qs",QUOTE_SECONDS+"s");
+const pick=()=>{if(!order.length){order=QUOTES.map((_,i)=>i).sort(()=>Math.random()-.5);if(order[0]==last)order.push(order.shift())}return last=order.shift()};
+function show(first){const [q,who]=QUOTES[pick()];
+  const set=()=>{b.textContent="\u201C"+q+"\u201D";a.textContent=who;f.classList.remove("out");bar.classList.remove("run");void bar.offsetWidth;bar.classList.add("run")};
+  first===true?set():(f.classList.add("out"),setTimeout(set,600));
+  clearTimeout(timer);timer=setTimeout(show,QUOTE_SECONDS*1000+(first===true?0:600))}
+f.onclick=()=>show();show(true)})();
+</script>
+</body>
+</html>
