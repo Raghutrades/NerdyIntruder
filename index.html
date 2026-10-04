@@ -31,7 +31,7 @@ h1{font:800 clamp(2.8rem,12vw,5.6rem)/.96 Fraunces,Georgia,serif;letter-spacing:
 .ann{padding:6px 22px 30px}
 .box{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:20px}
 h3{font:600 clamp(1.4rem,5vw,1.9rem)/1.2 Fraunces,Georgia,serif}
-.box ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.box ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;padding:0}
 .box li{border:1px solid rgba(210,169,60,.4);color:var(--brass);border-radius:99px;padding:3px 12px;font-size:.88rem}
 .box p{color:var(--soft);margin-top:8px}.box .warn{color:var(--mute);font-size:.92rem}
 .mt{padding:10px 22px 34px}
@@ -81,6 +81,18 @@ h2{font:600 1.2rem/1.2 Fraunces,Georgia,serif;margin-top:4px}
 .soon{border:1px dashed var(--line);color:var(--mute);padding:8px 15px;border-radius:99px;font-size:.9rem}
 .pl iframe{width:100%;height:110px;border:0;border-radius:8px;background:#0c1424}
 .pl[hidden]{display:none}
+.ap{border:1px solid var(--line);border-radius:10px;padding:10px;display:grid;gap:8px}
+.r1,.r2{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sk{flex:1;min-width:0;accent-color:var(--brass)}
+.tm{font-size:.8rem;color:var(--mute);min-width:6em;text-align:right}
+.ap button{border:1px solid var(--line);background:var(--pill);border-radius:99px;padding:5px 12px;cursor:pointer;font-size:.85rem}
+.ap .pp{background:var(--brass);color:var(--btnink);border-color:var(--brass);width:42px;height:42px;padding:0;border-radius:50%}
+#rdr{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;flex-direction:column}
+#rdr[hidden]{display:none}
+.rh{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.rh span{flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rh button,.rh a{border:1px solid var(--line);background:var(--pill);border-radius:99px;padding:6px 14px;text-decoration:none;cursor:pointer;font-size:.88rem}
+#rf{flex:1;width:100%;border:0;background:#fff}
 footer{padding:28px 22px 60px;border-top:1px solid var(--line);color:var(--mute);font-size:.88rem}
 footer p+p{margin-top:8px}
 .th{position:fixed;top:12px;right:12px;z-index:9;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--pill);cursor:pointer;font-size:1.1rem;backdrop-filter:blur(6px)}
@@ -123,6 +135,8 @@ footer p+p{margin-top:8px}
   <p>Educational content only. Not investment advice. Markets have risk.</p>
 </footer>
 
+<div id="rdr" hidden><div class="rh"><button id="rx">✕ Close</button><span id="rt"></span><a id="ro" target="_blank" rel="noopener">Open in Drive</a></div><iframe id="rf" title="PDF reader"></iframe></div>
+
 <script>
 /* ===== HOW TO EDIT: change only text inside "quotes". Do not delete commas, brackets or braces. ===== */
 const PROFILE={
@@ -137,10 +151,10 @@ const PROFILE={
   footer:"Made by The Quant Stoic."
 };
 
-/* BOOKS, in reading order.
-   t=title, ph=phase, s=summary
-   a=Drive ID of audio, p=Drive ID of PDF (the long code between /d/ and /view in the Drive link)
-   Leave a:"" and p:"" for "Coming soon". Cover image (optional): covers/book1.jpg ... covers/book14.jpg */
+/* BOOKS in reading order. t=title, ph=phase, s=summary,
+   a=Drive ID of the audio (also the backup player), p=Drive ID of the PDF.
+   Audio files on the page are audio/book1.mp3 ... audio/book14.mp3.
+   Coming soon: leave a:"" and p:"". Covers (optional): covers/book1.jpg ... */
 const BOOKS=[
 {t:"Before You Click Buy",ph:"Foundation",a:"1nQ6IHbiM9CtzU0p4ZbFlDO2wUihinMwW",p:"17MDtyrTReizoD2lyzVi2IA-GBQ0yaB49",
  s:"The beginner entry point. Written for students, homemakers and career-switchers. It explains what markets are, and what they are not, before you put in any money."},
@@ -173,7 +187,7 @@ const BOOKS=[
 ];
 
 /* MENTORS: [name, role, group, what I took from them].
-   Portrait (optional): put a photo at mentors/jim-simons.jpg (lowercase name, dashes). No photo = a gold monogram shows. */
+   Photo (optional): Mentors/jim-simons.jpg (lowercase name with dashes). No photo = gold monogram. */
 const MENTORS=[
 ["Jim Simons","Mathematician · Renaissance Technologies","Market Minds","Let the data speak. Trust a tested system over a good story."],
 ["Richard Dennis","Commodity trader · the Turtle experiment","Market Minds","Trading can be taught. Clear rules, followed every time, build an edge."],
@@ -226,7 +240,7 @@ const card=(b,i)=>`<article class="card" data-i="${i}" style="--n:${i}" data-t="
 <div class="top"><div class="cv" style="--h:${(i*47+215)%360}"><span>${b.t}</span><img src="covers/book${i+1}.jpg" alt="Cover of ${b.t}" loading="lazy" onerror="this.remove()"></div>
 <div><p class="no">BOOK ${String(i+1).padStart(2,"0")} OF ${N}</p><h2>${b.t}</h2><p class="sub">${b.ph}</p></div></div>
 <p class="sum">${b.s}</p><button class="more">Read more</button>
-<div class="act">${b.a?'<button class="play">Listen</button>':""}${b.p?`<a href="${dr(b.p)}/view" target="_blank" rel="noopener">Read PDF</a>`:""}${!b.a&&!b.p?'<span class="soon">Coming soon</span>':""}</div>
+<div class="act">${b.a?'<button class="play">Listen</button>':""}${b.p?'<button class="rd">Read PDF</button>':""}${!b.a&&!b.p?'<span class="soon">Coming soon</span>':""}</div>
 <div class="pl" hidden></div></article>`;
 const g=$("grid");g.innerHTML=BOOKS.map(card).join("");
 const phases=["All",...new Set(BOOKS.map(b=>b.ph))];
@@ -234,15 +248,48 @@ $("bar").innerHTML=phases.map((t,i)=>`<button aria-pressed="${!i}">${t}</button>
 $("bar").onclick=e=>{const t=e.target.closest("button");if(!t)return;
   [...$("bar").children].forEach(x=>x.setAttribute("aria-pressed",x==t));
   g.querySelectorAll(".card").forEach(c=>c.hidden=t.textContent!="All"&&c.dataset.t!=t.textContent)};
-g.onclick=e=>{const c=e.target.closest(".card");if(!c)return;const b=BOOKS[c.dataset.i],t=e.target;
+
+/* Audio player: speed, skip, seek, sleep timer, remembers position. Backup: Drive player */
+const fm=s=>isFinite(s)?Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0"):"0:00";
+function mkPlayer(c,b,i){
+  const p=c.querySelector(".pl");
+  p.innerHTML=`<div class="ap"><audio preload="metadata" src="Audio/book${i+1}.mp3"></audio><div class="r1"><button class="pp" aria-label="Play">▶</button><input class="sk" type="range" min="0" max="1000" value="0" aria-label="Seek"><span class="tm">0:00</span></div><div class="r2"><button class="bk">−15s</button><button class="fw">+30s</button><button class="sp">1×</button><button class="sl">Sleep: off</button></div></div>`;
+  const a=p.querySelector("audio"),sk=p.querySelector(".sk"),tm=p.querySelector(".tm"),pp=p.querySelector(".pp"),key="pos"+i,rates=[1,1.25,1.5,2,0.75],sls=[0,15,30,60];
+  let st=0,ri=0,si=0,tmr;
+  try{const v=+localStorage.getItem(key);if(v)a.addEventListener("loadedmetadata",()=>{a.currentTime=v},{once:true})}catch(e){}
+  a.ontimeupdate=()=>{if(a.duration)sk.value=a.currentTime/a.duration*1000;tm.textContent=fm(a.currentTime)+" / "+fm(a.duration);
+    try{if(Date.now()-st>4000){st=Date.now();localStorage.setItem(key,a.currentTime)}}catch(e){}};
+  a.onloadedmetadata=()=>{tm.textContent="0:00 / "+fm(a.duration)};
+  a.onplay=()=>pp.textContent="❚❚";a.onpause=()=>pp.textContent="▶";
+  a.onended=()=>{try{localStorage.removeItem(key)}catch(e){}};
+  a.onerror=()=>{p.innerHTML=`<iframe src="${dr(b.a)}/preview" allow="autoplay" title="Audio: ${b.t}"></iframe>`};
+  sk.oninput=()=>{if(a.duration)a.currentTime=sk.value/1000*a.duration};
+  p.onclick=e=>{const t=e.target;
+    if(t.matches(".pp"))a.paused?a.play():a.pause();
+    if(t.matches(".bk"))a.currentTime=Math.max(0,a.currentTime-15);
+    if(t.matches(".fw"))a.currentTime=Math.min(a.duration||1e9,a.currentTime+30);
+    if(t.matches(".sp")){ri=(ri+1)%rates.length;a.playbackRate=rates[ri];t.textContent=rates[ri]+"×"}
+    if(t.matches(".sl")){si=(si+1)%sls.length;clearTimeout(tmr);t.textContent=si?"Sleep: "+sls[si]+"m":"Sleep: off";if(si)tmr=setTimeout(()=>a.pause(),sls[si]*60000)}}}
+g.addEventListener("play",e=>g.querySelectorAll("audio").forEach(a=>a!==e.target&&a.pause()),true);
+
+/* PDF reader: full screen on this page. Phone back button closes it. */
+const R=$("rdr");
+function openR(b){$("rt").textContent=b.t;$("rf").src=dr(b.p)+"/preview";$("ro").href=dr(b.p)+"/view";R.hidden=false;document.body.style.overflow="hidden";history.pushState({r:1},"")}
+function closeR(){R.hidden=true;$("rf").src="about:blank";document.body.style.overflow=""}
+$("rx").onclick=()=>history.state&&history.state.r?history.back():closeR();
+addEventListener("popstate",()=>{if(!R.hidden)closeR()});
+
+g.onclick=e=>{const c=e.target.closest(".card");if(!c)return;const i=+c.dataset.i,b=BOOKS[i],t=e.target;
   if(t.matches(".more")){c.classList.toggle("open");t.textContent=c.classList.contains("open")?"Show less":"Read more"}
+  if(t.matches(".rd"))openR(b);
   if(t.matches(".play")){const p=c.querySelector(".pl");p.hidden=!p.hidden;
-    if(!p.innerHTML)p.innerHTML=`<iframe src="${dr(b.a)}/preview" allow="autoplay" loading="lazy" title="Audio: ${b.t}"></iframe>`;
+    if(!p.hidden&&!p.innerHTML){mkPlayer(c,b,i);p.querySelector("audio").play().catch(()=>{})}
+    if(p.hidden){const a=p.querySelector("audio");a&&a.pause()}
     t.textContent=p.hidden?"Listen":"Hide player"}};
 
-/* Hall of Mentors: auto-rotates, tap a dot, swipe, pauses on touch or hover */
+/* Hall of Mentors: auto-rotates, tap a dot, swipe */
 (()=>{const s=$("stg"),d=$("dots");let i=0,tm,x0=0;
-d.innerHTML=MENTORS.map((m,k)=>`<button aria-label="${m[0]}"></button>`).join("");
+d.innerHTML=MENTORS.map(m=>`<button aria-label="${m[0]}"></button>`).join("");
 function show(k){i=(k+MENTORS.length)%MENTORS.length;s.classList.add("out");
   setTimeout(()=>{const [n,r,gp,tx]=MENTORS[i],sl=n.toLowerCase().replace(/[^a-z]+/g,"-"),ini=n.split(" ").map(w=>w[0]).slice(0,2).join("");
     s.innerHTML=`<div class="pf" style="--h:${(i*53+30)%360}"><b>${ini}</b><img src="Mentors/${sl}.jpg" alt="${n}" onerror="this.remove()"></div>
