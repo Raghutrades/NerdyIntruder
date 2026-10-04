@@ -245,7 +245,7 @@ g.onclick=e=>{const c=e.target.closest(".card");if(!c)return;const b=BOOKS[c.dat
 d.innerHTML=MENTORS.map((m,k)=>`<button aria-label="${m[0]}"></button>`).join("");
 function show(k){i=(k+MENTORS.length)%MENTORS.length;s.classList.add("out");
   setTimeout(()=>{const [n,r,gp,tx]=MENTORS[i],sl=n.toLowerCase().replace(/[^a-z]+/g,"-"),ini=n.split(" ").map(w=>w[0]).slice(0,2).join("");
-    s.innerHTML=`<div class="pf" style="--h:${(i*53+30)%360}"><b>${ini}</b><img src="mentors/${sl}.jpg" alt="${n}" onerror="this.remove()"></div>
+    s.innerHTML=`<div class="pf" style="--h:${(i*53+30)%360}"><b>${ini}</b><img src="Mentors/${sl}.jpg" alt="${n}" onerror="this.remove()"></div>
     <div><p class="grp">${gp}</p><p class="mn">${n}</p><p class="mr">${r}</p><p class="mx">${tx}</p></div>`;
     [...d.children].forEach((b,j)=>b.setAttribute("aria-current",j==i));s.classList.remove("out")},350)}
 const run=()=>{clearInterval(tm);tm=setInterval(()=>show(i+1),7000)},stop=()=>clearInterval(tm);
