@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Quant Stoic — Library</title>
-<meta name="description" content="Trading books, summaries and audio breakdowns.">
+<title>The Quant Stoic — Free Library</title>
+<meta name="description" content="Free trading books, audio and PDFs. One book every week.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,10 +13,10 @@
 [data-theme=light]{--bg:#f5efe2;--panel:#fffcf5;--line:#dcd1b9;--ink:#1b2438;--mute:#5b6780;--brass:#8a6410;--soft:#3a465e;--pill:rgba(255,252,245,.85);--btnink:#fff8e6}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font:400 16px/1.6 Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
 a,button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--brass);outline-offset:2px}
-.hero{position:relative;min-height:86svh;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 22px 38px;max-width:1080px;margin:0 auto}
+.hero{position:relative;min-height:80svh;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 22px 38px;max-width:1080px;margin:0 auto}
 .hero::before{content:"";position:absolute;inset:0 -50vw;background:linear-gradient(180deg,transparent 30%,var(--bg) 96%);z-index:1;pointer-events:none}
 #tape{position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%)}
 .hero>:not(canvas){position:relative;z-index:2}
@@ -24,36 +24,32 @@ a,button{font:inherit;color:inherit}
 h1{font:800 clamp(2.8rem,12vw,5.6rem)/.96 Fraunces,Georgia,serif;letter-spacing:-.025em}
 .lede{max-width:36ch;color:var(--mute);margin-top:16px;font-size:1.06rem}
 .quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
-.quick a,.act a,.act button{border:1px solid var(--line);background:var(--pill);padding:8px 15px;border-radius:99px;text-decoration:none;font-weight:500;font-size:.92rem;cursor:pointer;transition:border-color .2s,background .2s}
+.quick a,.act a,.act button{border:1px solid var(--line);background:var(--pill);padding:8px 15px;border-radius:99px;text-decoration:none;font-weight:500;font-size:.92rem;cursor:pointer;transition:border-color .2s}
 .quick a:hover,.act a:hover,.act button:hover{border-color:var(--brass)}
 .quick a:first-child,.act .play{background:var(--brass);border-color:var(--brass);color:var(--btnink);font-weight:600}
-main{max-width:1080px;margin:0 auto;padding:0 18px 56px}
-.bar{display:flex;gap:8px;overflow-x:auto;padding:12px 0;position:sticky;top:0;background:var(--bg);z-index:5;scrollbar-width:none}
-.bar button{flex:none;border:1px solid var(--line);background:none;padding:6px 14px;border-radius:99px;cursor:pointer;color:var(--mute)}
-.bar button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:600}
-.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin-top:8px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
-.card[hidden]{display:none}
-.top{display:flex;gap:14px}
-.cv{position:relative;flex:none;width:104px;aspect-ratio:2/3;border-radius:6px 10px 10px 6px;overflow:hidden;background:linear-gradient(160deg,hsl(var(--h) 38% 30%),hsl(var(--h) 45% 12%));box-shadow:-3px 0 0 rgba(0,0,0,.35) inset,0 8px 20px rgba(0,0,0,.4)}
-.cv span{position:absolute;inset:0;padding:10px 9px;font:800 .82rem/1.15 Fraunces,Georgia,serif;display:flex;align-items:flex-end}
-.cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-h2{font:600 1.25rem/1.2 Fraunces,Georgia,serif}
-.sub{color:var(--mute);font-size:.9rem;margin-top:3px}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.tags i{font-style:normal;font-size:.76rem;color:var(--brass);border:1px solid rgba(210,169,60,.4);border-radius:5px;padding:1px 7px}
-.sum{color:var(--soft);font-size:.95rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.card.open .sum{-webkit-line-clamp:unset;display:block}
-.more{align-self:flex-start;background:none;border:0;color:var(--mute);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px;font-size:.88rem}
-.act{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
-.pl iframe{width:100%;height:110px;border:0;border-radius:8px;background:#0c1424}
-.pl audio{width:100%}
-.pl[hidden]{display:none}
-footer{max-width:1080px;margin:0 auto;padding:28px 22px 60px;border-top:1px solid var(--line);color:var(--mute);font-size:.88rem}
-footer p+p{margin-top:8px}
-body,footer{transition:background .4s,color .4s}
-.th{position:fixed;top:12px;right:12px;z-index:9;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--pill);cursor:pointer;font-size:1.1rem;backdrop-filter:blur(6px)}
-.qt{max-width:1080px;margin:0 auto;padding:4px 22px 34px}
+.ann,.mt,.qt,main,footer{max-width:1080px;margin:0 auto}
+.ann{padding:6px 22px 30px}
+.box{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:20px}
+h3{font:600 clamp(1.4rem,5vw,1.9rem)/1.2 Fraunces,Georgia,serif}
+.box ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.box li{border:1px solid rgba(210,169,60,.4);color:var(--brass);border-radius:99px;padding:3px 12px;font-size:.88rem}
+.box p{color:var(--soft);margin-top:8px}.box .warn{color:var(--mute);font-size:.92rem}
+.mt{padding:10px 22px 34px}
+.mt>p.k{color:var(--mute);margin:4px 0 20px}
+.stage{display:grid;gap:22px;align-items:center;transition:opacity .35s,transform .35s}
+.stage.out{opacity:0;transform:translateY(8px)}
+@media(min-width:720px){.stage{grid-template-columns:250px 1fr}}
+.pf{position:relative;aspect-ratio:4/5;width:min(250px,64vw);border:1px solid var(--brass);border-radius:125px 125px 10px 10px;overflow:hidden;background:linear-gradient(160deg,hsl(var(--h) 38% 30%),hsl(var(--h) 45% 12%));box-shadow:0 0 0 6px var(--bg),0 0 0 7px var(--line),0 14px 30px rgba(0,0,0,.4)}
+.pf b{position:absolute;inset:0;display:grid;place-items:center;font:800 3.4rem Fraunces,serif;color:var(--brass)}
+.pf img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) sepia(.25)}
+.grp{color:var(--brass);font-weight:600;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+.mn{font:800 clamp(1.8rem,7vw,2.8rem)/1.05 Fraunces,Georgia,serif;margin:6px 0}
+.mr{color:var(--mute)}.mx{margin-top:12px;color:var(--soft);max-width:44ch;font-size:1.05rem}
+.dots{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.dots button{width:9px;height:9px;border-radius:50%;border:1px solid var(--mute);background:none;padding:0;cursor:pointer;transition:width .3s}
+.dots button[aria-current=true]{background:var(--brass);border-color:var(--brass);width:22px;border-radius:5px}
+.mnote{margin-top:22px;color:var(--soft);max-width:64ch}
+.qt{padding:4px 22px 34px}
 .qt figure{border-left:2px solid var(--brass);padding:4px 0 4px 18px;min-height:9em;cursor:pointer;transition:opacity .6s,transform .6s,filter .6s}
 .qt figure.out{opacity:0;transform:translateY(10px);filter:blur(4px)}
 .qt blockquote{font:600 clamp(1.3rem,4.8vw,2rem)/1.3 Fraunces,Georgia,serif;max-width:32ch}
@@ -62,9 +58,32 @@ body,footer{transition:background .4s,color .4s}
 .tk i{display:block;height:100%;width:0;background:var(--brass)}
 .tk i.run{animation:tick var(--qs,15s) linear forwards}
 @keyframes tick{to{width:100%}}
-.card{animation:rise .7s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--n)*80ms);transition:transform .25s,border-color .25s,background .4s}
+main{padding:0 18px 56px}
+.bar{display:flex;gap:8px;overflow-x:auto;padding:12px 0;position:sticky;top:0;background:var(--bg);z-index:5;scrollbar-width:none}
+.bar button{flex:none;border:1px solid var(--line);background:none;padding:6px 14px;border-radius:99px;cursor:pointer;color:var(--mute)}
+.bar button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:600}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin-top:8px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;animation:rise .7s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--n)*60ms);transition:transform .25s,border-color .25s}
 .card:hover{transform:translateY(-3px);border-color:var(--brass)}
+.card[hidden]{display:none}
 @keyframes rise{from{opacity:0;transform:translateY(20px)}}
+.top{display:flex;gap:14px}
+.cv{position:relative;flex:none;width:96px;aspect-ratio:2/3;border-radius:6px 10px 10px 6px;overflow:hidden;background:linear-gradient(160deg,hsl(var(--h) 38% 30%),hsl(var(--h) 45% 12%));box-shadow:-3px 0 0 rgba(0,0,0,.35) inset,0 8px 20px rgba(0,0,0,.4)}
+.cv span{position:absolute;inset:0;padding:10px 9px;font:800 .78rem/1.15 Fraunces,Georgia,serif;display:flex;align-items:flex-end}
+.cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.no{color:var(--brass);font-weight:600;font-size:.78rem;letter-spacing:.12em}
+h2{font:600 1.2rem/1.2 Fraunces,Georgia,serif;margin-top:4px}
+.sub{color:var(--mute);font-size:.88rem;margin-top:4px}
+.sum{color:var(--soft);font-size:.95rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card.open .sum{-webkit-line-clamp:unset;display:block}
+.more{align-self:flex-start;background:none;border:0;color:var(--mute);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px;font-size:.88rem}
+.act{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.soon{border:1px dashed var(--line);color:var(--mute);padding:8px 15px;border-radius:99px;font-size:.9rem}
+.pl iframe{width:100%;height:110px;border:0;border-radius:8px;background:#0c1424}
+.pl[hidden]{display:none}
+footer{padding:28px 22px 60px;border-top:1px solid var(--line);color:var(--mute);font-size:.88rem}
+footer p+p{margin-top:8px}
+.th{position:fixed;top:12px;right:12px;z-index:9;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--pill);cursor:pointer;font-size:1.1rem;backdrop-filter:blur(6px)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -77,161 +96,164 @@ body,footer{transition:background .4s,color .4s}
   <p class="lede" id="ld"></p>
   <nav class="quick" id="qk" aria-label="Links"></nav>
 </header>
+
+<section class="ann"><div class="box">
+  <h3>Free books. One new book every week.</h3>
+  <p>Markets move fast. Governments, world events, and AI cause many of the changes. If you want to learn about markets, investing, and trading, start here.</p>
+  <ul><li>📘 PDF</li><li>🎧 Audio</li><li>🔗 Related sources</li><li>Free. No sign-up.</li></ul>
+  <p class="warn">These books do not show a fast way to make money. They teach uncertainty, risk management, and market psychology. A simple trading setup comes after Book 9. Read the books in order.</p>
+</div></section>
+
+<section class="mt" id="mt" aria-label="Hall of Mentors">
+  <h3>The Hall of Mentors</h3>
+  <p class="k">The people whose ideas shaped how I think and trade.</p>
+  <div class="stage" id="stg"></div>
+  <div class="dots" id="dots"></div>
+  <p class="mnote" id="mnote"></p>
+</section>
+
 <section class="qt" aria-label="Quotes"><figure id="qf" title="Tap for another quote"><blockquote id="qb"></blockquote><figcaption id="qa"></figcaption></figure><div class="tk"><i id="qbar"></i></div></section>
+
 <main>
-  <div class="bar" id="bar" aria-label="Filter by topic"></div>
+  <div class="bar" id="bar" aria-label="Filter by phase"></div>
   <section class="grid" id="grid"></section>
 </main>
 <footer>
   <p id="ft"></p>
-  <p>Educational content only. Not investment advice.</p>
+  <p>Educational content only. Not investment advice. Markets have risk.</p>
 </footer>
 
 <script>
-/* ==========================================================================
-   HOW TO EDIT: only change the text inside "quotes" like "this". Never delete
-   a comma, bracket [ ], brace { } or the word before a colon (title:, cover: ...).
-
-   STEP 1: YOUR DETAILS
-   ========================================================================== */
+/* ===== HOW TO EDIT: change only text inside "quotes". Do not delete commas, brackets or braces. ===== */
 const PROFILE={
-  name:"The Quant Stoic",            /* big title on top */
-  handle:"@NerdyIntruder",           /* small line above the title */
-  tagline:"Intraday options, market structure and trading psychology. Books, summaries and audio breakdowns in one place.",
-  links:[                            /* buttons under the title, add or delete lines freely */
-    {label:"Jump to books",url:"#grid"},
-    {label:"Instagram",url:"https://instagram.com/nerdyintruder"},
-    {label:"All files on Drive",url:"https://drive.google.com/drive/folders/YOUR_FOLDER_ID"}
+  name:"The Quant Stoic",
+  handle:"@NerdyIntruder",
+  tagline:"Free books, audio and PDFs on market structure, risk and trading psychology. One new book every week.",
+  links:[
+    {label:"Start with Book 1",url:"#grid"},
+    {label:"Hall of Mentors",url:"#mt"},
+    {label:"Instagram",url:"https://instagram.com/nerdyintruder"}
   ],
   footer:"Made by The Quant Stoic."
 };
 
-/* ==========================================================================
-   STEP 2: YOUR BOOKS
-   One book = one block from { to }, followed by a comma.
-   ADD a book: copy a whole block, paste it right after the last block.
-   REMOVE a book: delete its whole block.
-
-   title    book name
-   subtitle author name or a short line
-   cover    image file in your GitHub "covers" folder, like "covers/book1.jpg".
-            Leave "" and a cover is generated for you.
-   tags     topics; they become the filter buttons at the top
-   summary  your text about the book (long is fine, it collapses)
-   audio    paste the normal Drive link of the NotebookLM audio
-            (Drive > Share > Copy link). No audio? write ""
-   pdf      Drive link of a PDF or doc. None? write ""
-   links    extra buttons, like [{label:"NotebookLM",url:"https://..."}]. None? write []
-   IMPORTANT: in Drive set each file to "Anyone with the link can view".
-   ========================================================================== */
+/* BOOKS, in reading order.
+   t=title, ph=phase, s=summary
+   a=Drive ID of audio, p=Drive ID of PDF (the long code between /d/ and /view in the Drive link)
+   Leave a:"" and p:"" for "Coming soon". Cover image (optional): covers/book1.jpg ... covers/book14.jpg */
 const BOOKS=[
-  {title:"Who's Trading Your Account",subtitle:"@NerdyIntruder",cover:"covers/book1.jpg",tags:["Psychology","Trading"],
-   summary:"The book explores why a trader can have a profitable strategy, solid risk management, and a proven edge — yet still sabotage that system when faced with stress, fear, drawdowns, fatigue, or emotional prressure At the center of the book is the idea of the “Second Trader” — the unconscious part of you that can take control at exactly the wrong moment. Instead of simply telling traders to “be more disciplined,” the book treats trading psychology as an engineering problem. Using frameworks such as the Iceberg of Self, the Designer/Executor model, probability-based thinking, physiological awareness, rehearsal, issues logs, escalation rules, and a daily trading protocol, the book shows traders how to identify where their decisions actually break down — and build systems that make those failures harder to repeat. It is written for both discretionary and systematic traders. At its core, this isn't a book about finding another strategy or predicting the market. It's about understanding the trader operating the strategy — and engineering that trader so the edge has a better chance of surviving contact with real money. The goal isn't to become a trader who never makes mistakes. It's to become a trader who stops making the same mistake twice.",
-   audio:"https://drive.google.com/file/d/1qNCA1yuSI34dfJrBG3Sv7mFy4WaRg0QI/view?usp=drivesdk",
-   pdf:"https://drive.google.com/file/d/1c6Xrz3btMaxvD9NaDQFg0rM4pX_OSa_L/view?usp=drivesdk",
-   links:[{label:"NotebookLM",url:"https://notebooklm.google.com/"}]},
-
-  {title:"Book Title Two",subtitle:"Author name",cover:"",tags:["Philosophy"],
-   summary:"Second book summary goes here.",
-   audio:"https://drive.google.com/file/d/PASTE_FILE_ID/view",pdf:"",links:[]},
-
-  {title:"Book Title Three",subtitle:"Author name",cover:"",tags:["Trading","Options"],
-   summary:"Third book summary goes here.",
-   audio:"",pdf:"https://drive.google.com/file/d/PASTE_FILE_ID/view",links:[]}
+{t:"Before You Click Buy",ph:"Foundation",a:"1nQ6IHbiM9CtzU0p4ZbFlDO2wUihinMwW",p:"17MDtyrTReizoD2lyzVi2IA-GBQ0yaB49",
+ s:"The beginner entry point. Written for students, homemakers and career-switchers. It explains what markets are, and what they are not, before you put in any money."},
+{t:"The King's Wager",ph:"Foundation",a:"1n6mzT7wylEcU8LB4vnDugd5n46nWWRP8",p:"1YFTnhx2BV8ETM74NvmQff-2Vb4few1Sb",
+ s:"The chessboard story shows why “double my money” is a trap. It replaces that fantasy with realistic compounding. This is the book about uncertainty and risk."},
+{t:"The Cold Desk",ph:"Foundation",a:"1jOa_GLbR4PEHZWeGOACZjBVGk66KeX_y",p:"1YFEbdr2yltdm5oOegi8Y1VrYbYa_3cID",
+ s:"Five types of trading mindset. Find out which type you are before you go deeper."},
+{t:"The Confidence Misprice",ph:"The Mind",a:"1uRQD5LYOHhEY9268Hi2E4H0O1a6GS7IW",p:"1uZydYkuhI5o0mm2WkRzEWPVzYaCaed2C",
+ s:"How too much confidence causes loss. Covers the Dunning-Kruger effect, the guru mirage, and self-sabotage."},
+{t:"Who's Trading Your Account?",ph:"The Mind",a:"1qNCA1yuSI34dfJrBG3Sv7mFy4WaRg0QI",p:"1c6Xrz3btMaxvD9NaDQFg0rM4pX_OSa_L",
+ s:"Why a trader can have a profitable strategy, solid risk management and a proven edge, and still sabotage it under stress, fear or drawdown. The book introduces the “Second Trader”, the unconscious part of you that takes control at the wrong moment. It treats psychology as an engineering problem, with clear frameworks and a daily protocol. The goal is not to never make mistakes. The goal is to stop making the same mistake twice."},
+{t:"The Turtle's Edge",ph:"The Mind",a:"1l7B-Rq89G4dfad4bl3PP3v5NbGFddSPP",p:"1OZ4TKdmpTlJl1wLRe1h-4OvvQu6ebE5z",
+ s:"Fear, comparison and shame. It follows the cycle from following the system, to revenge trade, to blow-up, and shows how to break it."},
+{t:"The Soul of the Trade",ph:"Self-Mastery",a:"",p:"",
+ s:"Trading as a path to self-mastery. Draws on Stoicism, the Gita and Jung. Audio and PDF coming soon."},
+{t:"The Full Position",ph:"Self-Mastery",a:"1_A3N0bKU788-k6-cc0wVgKo9jqWU3ziO",p:"15uMPZUMSUVDAb1IbbRybFJYrynIdWLz-",
+ s:"The cost of trading as a profession: no fixed income, the judgment of family, and no one to validate you."},
+{t:"The Souls Position",ph:"Self-Mastery",a:"1Fvu9D_fzEgkq6uUH_k2GqoRCDdZCtJV9",p:"1eVB4noiSkURSkZXf_vbz4I0DiOtkp9Y3",
+ s:"The market as a mirror. Introduces the Two Buckets system, the first step toward structure."},
+{t:"Sthitaprajna on the Desk",ph:"Discipline & Setup",a:"1F6cC0b1AjoP66DPLzDrPNW3xMjH77R9R",p:"1quCFzuVjajJv1zIZefEbU0GnACMBnB6Z",
+ s:"A steady mind plus the naked-chart method: previous day high and low, VWAP and AVWAP, and a checklist. The bridge from philosophy to method."},
+{t:"The Inner Citadel Trade",ph:"Discipline & Setup",a:"19ms5EY9J6sbwg4UZ87AKcKnOG2Lxov5c",p:"1oaQZs3firfzo4CIssHvRjTKF01F8a8Fr",
+ s:"A field manual for the mind, drawn from Stoicism and the Gita. The longest book in the series."},
+{t:"The Standing Order",ph:"Discipline & Setup",a:"1btHYSg22fTKF8a3Zpp6vJDqswgZmuurV",p:"1_Woj579IjE5jZpBtdup3mkmCuQ_8bWDl",
+ s:"My daily process: bias check, open interest reads, confluence, and trigger discipline."},
+{t:"Quant Reloaded: The Iceberg Beneath the Breakout",ph:"Discipline & Setup",a:"1YeOtzDzlmAwsRVUdNAhbQCic2uV3xWFY",p:"1dN_lQVqIseSQ9TNNYum1MVh0-5WWHpv1",
+ s:"The full dashboard and setup. What sits beneath a breakout, and how to read it."},
+{t:"The Ninety-Day Mandate",ph:"Discipline & Setup",a:"1lH3cajSRAq-pSNIfynqOIkB0lmZibosP",p:"1Upk0SDCcpgQKtuSbZqaV_BQ55IaEXAXi",
+ s:"A 90-day roadmap that ties all the books together."}
 ];
 
-/* ==========================================================================
-   STEP 3: QUOTES (they rotate on their own, in random order)
-   QUOTE_SECONDS  how long each quote stays. Use any number from 10 to 20.
-   To add a quote, add a line like: ["Your quote text","Author name"],
-   ========================================================================== */
+/* MENTORS: [name, role, group, what I took from them].
+   Portrait (optional): put a photo at mentors/jim-simons.jpg (lowercase name, dashes). No photo = a gold monogram shows. */
+const MENTORS=[
+["Jim Simons","Mathematician · Renaissance Technologies","Market Minds","Let the data speak. Trust a tested system over a good story."],
+["Richard Dennis","Commodity trader · the Turtle experiment","Market Minds","Trading can be taught. Clear rules, followed every time, build an edge."],
+["Mark Minervini","Trader · three-time US Investing Champion","Market Minds","Protect capital first. Risk is set before the entry, not after."],
+["Andrew Aziz","Day trader · author","Market Minds","Day trading is a business. Prepare, plan, and follow the plan."],
+["Alexander Elder","Psychiatrist and trader","Market Minds","Mind, method and money. The mind comes first."],
+["Ray Dalio","Founder · Bridgewater Associates","Market Minds","Write your principles. Test them. Be honest about your own mistakes."],
+["Warren Buffett","Investor · Berkshire Hathaway","Market Minds","Patience and a margin of safety. Do not lose money."],
+["Marcus Aurelius","Roman emperor · Stoic","Stoics","Control your reaction. You cannot control the event."],
+["Seneca","Roman statesman · Stoic","Stoics","We suffer more in imagination than in reality. Prepare early, stay calm."],
+["Epictetus","Former slave · Stoic teacher","Stoics","Separate what is in your control from what is not."],
+["Lord Krishna","The Bhagavad Gita","Dharma","Do the work with full focus. Let go of the result."]
+];
+const MENTOR_NOTE="These are my teachers on the desk. Some taught me systems. Some taught me risk. The Stoics and the Gita taught me to stay steady when the trade moves against me. I do not copy them. I take one lesson from each, and I test it with my own rules.";
+
+/* QUOTES: rotate by themselves. Add lines like ["Quote","Author"], */
 const QUOTE_SECONDS=15;
 const QUOTES=[
-  ["Be fearful when others are greedy, and greedy when others are fearful.", "Warren Buffett"],
-  ["The stock market is a device for transferring money from the impatient to the patient.", "Warren Buffett"],
-  ["Rule No. 1: Never lose money. Rule No. 2: Never forget rule No. 1.", "Warren Buffett"],
-  ["Risk comes from not knowing what you're doing.", "Warren Buffett"],
-  ["It's not whether you're right or wrong, but how much money you make when you're right and how much you lose when you're wrong.", "George Soros"],
-  ["It never was my thinking that made the big money for me. It always was my sitting.", "Edwin Lefèvre, Reminiscences of a Stock Operator"],
-  ["There is nothing new in Wall Street. There can't be, because speculation is as old as the hills.", "Edwin Lefèvre, Reminiscences of a Stock Operator"],
-  ["Don't focus on making money; focus on protecting what you have.", "Paul Tudor Jones"],
-  ["Losers average losers.", "Paul Tudor Jones"],
-  ["The four most dangerous words in investing are: this time it's different.", "Sir John Templeton"],
-  ["Bull markets are born on pessimism, grown on skepticism, mature on optimism and die on euphoria.", "Sir John Templeton"],
-  ["In investing, what is comfortable is rarely profitable.", "Robert Arnott"],
-  ["The big money is not in the buying and selling, but in the waiting.", "Charlie Munger"],
-  ["Invert, always invert.", "Charlie Munger"],
-  ["The goal of a successful trader is to make the best trades. Money is secondary.", "Alexander Elder"],
-  ["The investor's chief problem, and even his worst enemy, is likely to be himself.", "Benjamin Graham"],
-  ["Plan the trade, then trade the plan.", "Trading maxim"],
-  ["Cut your losses short and let your profits run.", "Trading maxim"],
-  ["Hope is not a strategy.", "Trading maxim"],
-  ["The trend is your friend.", "Trading maxim"],
-  ["What stands in the way becomes the way.", "Marcus Aurelius"],
-  ["Waste no more time arguing about what a good man should be. Be one.", "Marcus Aurelius"],
-  ["You could leave life right now. Let that determine what you do and say and think.", "Marcus Aurelius"],
-  ["Very little is needed to make a happy life; it is all within yourself, in your way of thinking.", "Marcus Aurelius"],
-  ["It is not that we have a short time to live, but that we waste a lot of it.", "Seneca"],
-  ["We suffer more often in imagination than in reality.", "Seneca"],
-  ["Difficulties strengthen the mind, as labor does the body.", "Seneca"],
-  ["No man is free who is not master of himself.", "Epictetus"],
-  ["First say to yourself what you would be; and then do what you have to do.", "Epictetus"],
-  ["It's not what happens to you, but how you react to it that matters.", "Epictetus"],
-  ["We are what we repeatedly do. Excellence, then, is not an act, but a habit.", "Will Durant"],
-  ["You do not rise to the level of your goals. You fall to the level of your systems.", "James Clear"],
-  ["Every action you take is a vote for the type of person you wish to become.", "James Clear"],
-  ["Discipline is the bridge between goals and accomplishment.", "Jim Rohn"],
-  ["Motivation is what gets you started. Habit is what keeps you going.", "Jim Ryun"],
-  ["Success is the sum of small efforts, repeated day in and day out.", "Robert Collier"],
-  ["It does not matter how slowly you go as long as you do not stop.", "Confucius"],
-  ["A journey of a thousand miles begins with a single step.", "Lao Tzu"],
-  ["Fall seven times, stand up eight.", "Japanese proverb"],
-  ["Slow is smooth, and smooth is fast.", "Military maxim"],
-  ["What you do every day matters more than what you do once in a while.", "Gretchen Rubin"],
-  ["I fear not the man who has practiced 10,000 kicks once, but the man who has practiced one kick 10,000 times.", "Bruce Lee"],
-  ["Small deeds done are better than great deeds planned.", "Peter Marshall"],
-  ["Hard choices, easy life. Easy choices, hard life.", "Jerzy Gregorek"],
-  ["Whether you think you can, or you think you can't, you're right.", "Henry Ford"],
-  ["He who has a why to live can bear almost any how.", "Friedrich Nietzsche"],
-  ["Life can only be understood backwards; but it must be lived forwards.", "Søren Kierkegaard"],
-  ["Courage is resistance to fear, mastery of fear, not absence of fear.", "Mark Twain"],
-  ["What we fear doing most is usually what we most need to do.", "Tim Ferriss"],
-  ["Nothing in life is to be feared, it is only to be understood.", "Marie Curie"],
-  ["The first principle is that you must not fool yourself, and you are the easiest person to fool.", "Richard Feynman"],
-  ["Experience is what you get when you didn't get what you wanted.", "Randy Pausch"],
-  ["The unexamined life is not worth living.", "Socrates"],
-  ["Fortune favors the bold.", "Virgil"],
-  ["Do what you can, with what you have, where you are.", "Theodore Roosevelt"],
-  ["Well begun is half done.", "Aristotle"]
+["Be fearful when others are greedy, and greedy when others are fearful.","Warren Buffett"],
+["The stock market is a device for transferring money from the impatient to the patient.","Warren Buffett"],
+["Rule No. 1: Never lose money. Rule No. 2: Never forget rule No. 1.","Warren Buffett"],
+["It never was my thinking that made the big money for me. It always was my sitting.","Edwin Lefèvre, Reminiscences of a Stock Operator"],
+["Don't focus on making money; focus on protecting what you have.","Paul Tudor Jones"],
+["The four most dangerous words in investing are: this time it's different.","Sir John Templeton"],
+["The investor's chief problem, and even his worst enemy, is likely to be himself.","Benjamin Graham"],
+["The goal of a successful trader is to make the best trades. Money is secondary.","Alexander Elder"],
+["What stands in the way becomes the way.","Marcus Aurelius"],
+["You could leave life right now. Let that determine what you do and say and think.","Marcus Aurelius"],
+["We suffer more often in imagination than in reality.","Seneca"],
+["It is not that we have a short time to live, but that we waste a lot of it.","Seneca"],
+["No man is free who is not master of himself.","Epictetus"],
+["You do not rise to the level of your goals. You fall to the level of your systems.","James Clear"],
+["The first principle is that you must not fool yourself, and you are the easiest person to fool.","Richard Feynman"],
+["He who has a why to live can bear almost any how.","Friedrich Nietzsche"],
+["Plan the trade, then trade the plan.","Trading maxim"],
+["Cut your losses short and let your profits run.","Trading maxim"],
+["Hope is not a strategy.","Trading maxim"],
+["Slow is smooth, and smooth is fast.","Military maxim"]
 ];
+/* ===== END EDIT BLOCK ===== */
 
-/* ============ END EDIT BLOCK ============ */
-
-const $=id=>document.getElementById(id);
-document.title=PROFILE.name+" — Library";
-$("hd").textContent=PROFILE.handle;$("nm").textContent=PROFILE.name;$("ld").textContent=PROFILE.tagline;$("ft").textContent=PROFILE.footer;
+const $=id=>document.getElementById(id),root=document.documentElement,N=BOOKS.length;
+document.title=PROFILE.name+" — Free Library";
+$("hd").textContent=PROFILE.handle;$("nm").textContent=PROFILE.name;$("ld").textContent=PROFILE.tagline;$("ft").textContent=PROFILE.footer;$("mnote").textContent=MENTOR_NOTE;
 $("qk").innerHTML=PROFILE.links.map(l=>`<a href="${l.url}"${l.url[0]=="#"?"":' target="_blank" rel="noopener"'}>${l.label}</a>`).join("");
 
-const card=(b,i)=>`<article class="card" data-i="${i}" style="--n:${i}" data-t="${b.tags.join("|")}">
-<div class="top"><div class="cv" style="--h:${(i*47+215)%360}"><span>${b.title}</span>${b.cover?`<img src="${b.cover}" alt="Cover of ${b.title}" loading="lazy" onerror="this.remove()">`:""}</div>
-<div><h2>${b.title}</h2><p class="sub">${b.subtitle||""}</p><p class="tags">${b.tags.map(t=>`<i>${t}</i>`).join("")}</p></div></div>
-<p class="sum">${b.summary}</p><button class="more">Read more</button>
-<div class="act">${b.audio?'<button class="play">Listen</button>':""}${b.pdf?`<a href="${b.pdf}" target="_blank" rel="noopener">Summary PDF</a>`:""}${(b.links||[]).map(l=>`<a href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join("")}</div>
+/* Books */
+const dr=id=>"https://drive.google.com/file/d/"+id;
+const card=(b,i)=>`<article class="card" data-i="${i}" style="--n:${i}" data-t="${b.ph}">
+<div class="top"><div class="cv" style="--h:${(i*47+215)%360}"><span>${b.t}</span><img src="covers/book${i+1}.jpg" alt="Cover of ${b.t}" loading="lazy" onerror="this.remove()"></div>
+<div><p class="no">BOOK ${String(i+1).padStart(2,"0")} OF ${N}</p><h2>${b.t}</h2><p class="sub">${b.ph}</p></div></div>
+<p class="sum">${b.s}</p><button class="more">Read more</button>
+<div class="act">${b.a?'<button class="play">Listen</button>':""}${b.p?`<a href="${dr(b.p)}/view" target="_blank" rel="noopener">Read PDF</a>`:""}${!b.a&&!b.p?'<span class="soon">Coming soon</span>':""}</div>
 <div class="pl" hidden></div></article>`;
 const g=$("grid");g.innerHTML=BOOKS.map(card).join("");
-
-const tags=["All",...new Set(BOOKS.flatMap(b=>b.tags))];
-$("bar").innerHTML=tags.map((t,i)=>`<button aria-pressed="${!i}">${t}</button>`).join("");
+const phases=["All",...new Set(BOOKS.map(b=>b.ph))];
+$("bar").innerHTML=phases.map((t,i)=>`<button aria-pressed="${!i}">${t}</button>`).join("");
 $("bar").onclick=e=>{const t=e.target.closest("button");if(!t)return;
   [...$("bar").children].forEach(x=>x.setAttribute("aria-pressed",x==t));
-  g.querySelectorAll(".card").forEach(c=>c.hidden=t.textContent!="All"&&!c.dataset.t.split("|").includes(t.textContent))};
-
+  g.querySelectorAll(".card").forEach(c=>c.hidden=t.textContent!="All"&&c.dataset.t!=t.textContent)};
 g.onclick=e=>{const c=e.target.closest(".card");if(!c)return;const b=BOOKS[c.dataset.i],t=e.target;
   if(t.matches(".more")){c.classList.toggle("open");t.textContent=c.classList.contains("open")?"Show less":"Read more"}
   if(t.matches(".play")){const p=c.querySelector(".pl");p.hidden=!p.hidden;
-    if(!p.innerHTML){const m=b.audio.match(/\/d\/([\w-]+)|[?&]id=([\w-]+)/),id=m&&(m[1]||m[2]);
-      p.innerHTML=id?`<iframe src="https://drive.google.com/file/d/${id}/preview" allow="autoplay" loading="lazy" title="Audio: ${b.title}"></iframe>`:`<audio controls preload="none" src="${b.audio}"></audio>`}
+    if(!p.innerHTML)p.innerHTML=`<iframe src="${dr(b.a)}/preview" allow="autoplay" loading="lazy" title="Audio: ${b.t}"></iframe>`;
     t.textContent=p.hidden?"Listen":"Hide player"}};
+
+/* Hall of Mentors: auto-rotates, tap a dot, swipe, pauses on touch or hover */
+(()=>{const s=$("stg"),d=$("dots");let i=0,tm,x0=0;
+d.innerHTML=MENTORS.map((m,k)=>`<button aria-label="${m[0]}"></button>`).join("");
+function show(k){i=(k+MENTORS.length)%MENTORS.length;s.classList.add("out");
+  setTimeout(()=>{const [n,r,gp,tx]=MENTORS[i],sl=n.toLowerCase().replace(/[^a-z]+/g,"-"),ini=n.split(" ").map(w=>w[0]).slice(0,2).join("");
+    s.innerHTML=`<div class="pf" style="--h:${(i*53+30)%360}"><b>${ini}</b><img src="mentors/${sl}.jpg" alt="${n}" onerror="this.remove()"></div>
+    <div><p class="grp">${gp}</p><p class="mn">${n}</p><p class="mr">${r}</p><p class="mx">${tx}</p></div>`;
+    [...d.children].forEach((b,j)=>b.setAttribute("aria-current",j==i));s.classList.remove("out")},350)}
+const run=()=>{clearInterval(tm);tm=setInterval(()=>show(i+1),7000)},stop=()=>clearInterval(tm);
+d.onclick=e=>{const b=e.target.closest("button");if(b){show([...d.children].indexOf(b));run()}};
+s.onmouseenter=stop;s.onmouseleave=run;
+s.ontouchstart=e=>{x0=e.touches[0].clientX;stop()};
+s.ontouchend=e=>{const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)show(i+(dx<0?1:-1));run()};
+show(0);setTimeout(run,400)})();
 
 /* Hero: a session of candles draws itself once, with a running VWAP line */
 (()=>{const c=$("tape"),x=c.getContext("2d"),dpr=Math.min(devicePixelRatio||1,2);let W,H,k=0;
@@ -240,20 +262,20 @@ const mn=Math.min(...bars.map(b=>b.l)),mx=Math.max(...bars.map(b=>b.h));
 function draw(){x.clearRect(0,0,W,H);const cw=W/bars.length,y=v=>H*.1+(mx-v)/(mx-mn)*H*.5;
   bars.slice(0,k).forEach((b,i)=>{const cx=i*cw+cw/2;x.globalAlpha=.5;x.strokeStyle=x.fillStyle=b.cl>=b.o?"#3fb6a8":"#c8626d";
     x.beginPath();x.moveTo(cx,y(b.h));x.lineTo(cx,y(b.l));x.stroke();x.fillRect(cx-cw*.3,y(Math.max(b.o,b.cl)),cw*.6,Math.max(1.5,Math.abs(y(b.o)-y(b.cl))))});
-  x.globalAlpha=1;x.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--brass");x.lineWidth=1.6;x.beginPath();let pv=0,v=0;
+  x.globalAlpha=1;x.strokeStyle=getComputedStyle(root).getPropertyValue("--brass");x.lineWidth=1.6;x.beginPath();let pv=0,v=0;
   bars.slice(0,k).forEach((b,i)=>{pv+=(b.h+b.l+b.cl)/3*b.v;v+=b.v;i?x.lineTo(i*cw+cw/2,y(pv/v)):x.moveTo(cw/2,y(pv/v))});x.stroke()}
 function size(){W=c.clientWidth;H=c.clientHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);draw()}
 addEventListener("resize",size);window.redrawTape=()=>draw();
 if(matchMedia("(prefers-reduced-motion:reduce)").matches){k=bars.length;size()}
 else{size();(function step(){k=Math.min(bars.length,k+.6);draw();if(k<bars.length)requestAnimationFrame(step)})()}})();
 
-/* Theme: follows the phone setting first, then remembers the button choice */
-const root=document.documentElement,th=$("th");
+/* Theme */
+const th=$("th");
 function setTheme(t){root.dataset.theme=t;th.textContent=t=="dark"?"☀":"☾";try{localStorage.setItem("theme",t)}catch(e){}window.redrawTape&&redrawTape()}
 setTheme((()=>{try{return localStorage.getItem("theme")}catch(e){}})()||(matchMedia("(prefers-color-scheme:light)").matches?"light":"dark"));
 th.onclick=()=>setTheme(root.dataset.theme=="dark"?"light":"dark");
 
-/* Quotes: random order, no repeats until all are shown, tap to skip */
+/* Quotes */
 (()=>{const f=$("qf"),b=$("qb"),a=$("qa"),bar=$("qbar");let order=[],last=-1,timer;
 root.style.setProperty("--qs",QUOTE_SECONDS+"s");
 const pick=()=>{if(!order.length){order=QUOTES.map((_,i)=>i).sort(()=>Math.random()-.5);if(order[0]==last)order.push(order.shift())}return last=order.shift()};
